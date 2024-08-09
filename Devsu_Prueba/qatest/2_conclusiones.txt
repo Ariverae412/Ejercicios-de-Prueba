@@ -15,9 +15,9 @@
 - **Fallo en la Verificación de la Confirmación de Pedido:**
   - **Descripción del Error:** El mensaje de confirmación "THANK YOU FOR YOUR ORDER" no fue encontrado en la página. 
   - **Error Específico:** `no such element: Unable to locate element: {"method":"xpath","selector":"//h2[contains(text(),'THANK YOU FOR YOUR ORDER')]"}`
-  - **Posible Causa:** La página podría no haber cargado completamente antes de que el test intentara verificar la presencia del mensaje. También podría haber un problema con el selector XPath utilizado.
+  - **Posible Causa:** El fallo ocurrió debido a una diferencia en el formato del texto esperado. El test esperaba encontrar el mensaje en mayúsculas completas ("THANK YOU FOR YOUR ORDER"), mientras que el mensaje real en la página aparece con solo la primera letra en mayúscula y el resto en minúsculas ("Thank you for your order").
 
 ## Conclusiones
-- **Problema de Sincronización:** Es probable que el fallo se deba a un problema de sincronización, donde el test intentó verificar el mensaje de confirmación antes de que estuviera presente en el DOM.
-- **Recomendación:** Implementar esperas explícitas antes de verificar la presencia del mensaje de confirmación para asegurar que la página ha cargado completamente. Alternativamente, se debe revisar el selector XPath utilizado para asegurarse de que es correcto y robusto.
-- **Próximos Pasos:** Realizar ajustes en el código de la prueba para manejar mejor la sincronización y evitar futuros fallos similares.
+- **Error en la Comparación de Texto:** El fallo no se debió a un problema de sincronización, sino a una discrepancia en el formato del mensaje de confirmación. 
+- **Recomendación:** Ajustar el test para que la comparación de texto sea insensible a mayúsculas y minúsculas, o actualizar el texto esperado para que coincida con el formato real en la página.
+- **Próximos Pasos:** Modificar el selector o el método de verificación del texto para reflejar el mensaje correcto y realizar una nueva ejecución del test para confirmar que el problema ha sido resuelto.

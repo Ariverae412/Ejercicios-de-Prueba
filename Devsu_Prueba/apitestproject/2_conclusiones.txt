@@ -1,0 +1,22 @@
+El informe de resultados muestra que los cuatro escenarios de prueba ejecutados en Karate han fallado, a pesar de que varios de los pasos dentro de cada escenario se ejecutaron correctamente. Aquí hay algunas conclusiones clave:
+
+1. **Escenario "Crear un nuevo usuario al registrarse"**:
+   - Todos los pasos previos al último se ejecutaron correctamente, incluyendo la verificación de un estado 200.
+   - Sin embargo, la prueba falló en el último paso cuando se intentó comparar el campo `response.errorMessage` con `null`. Esto indica que hubo un mensaje de error en la respuesta que no se esperaba.
+
+2. **Escenario "Intentar crear un usuario ya existente"**:
+   - Similar al primer escenario, los pasos hasta la verificación del estado HTTP 409 se ejecutaron correctamente.
+   - La falla ocurrió porque no se pudo realizar la verificación del mensaje de error esperado (`response.errorMessage == 'This user already exist.'`), lo que sugiere que la respuesta del servidor fue diferente a la esperada.
+
+3. **Escenario "Usuario y contraseña correcta al iniciar sesión"**:
+   - Todos los pasos previos se ejecutaron con éxito, incluyendo la verificación de un estado 200.
+   - La prueba falló en el paso final, al intentar verificar que el mensaje de error en la respuesta fuera `null`. Esto sugiere que, a pesar de que el login fue técnicamente exitoso (indicando que el usuario y la contraseña eran correctos), hubo algún mensaje de error no esperado en la respuesta.
+
+4. **Escenario "Usuario y contraseña incorrecta al iniciar sesión"**:
+   - Los pasos hasta la verificación del estado HTTP 401 se ejecutaron correctamente.
+   - Sin embargo, la prueba falló en la verificación del mensaje de error esperado (`response.errorMessage == 'Wrong password.'`), lo que sugiere que el mensaje de error en la respuesta no coincidía con lo esperado.
+
+**Conclusión general**:
+- Los resultados indican que los escenarios están bien estructurados y la mayoría de los pasos se ejecutan correctamente, pero hay discrepancias entre las respuestas del servidor y las expectativas definidas en los test, particularmente en cuanto a los mensajes de error.
+- Es importante revisar y ajustar las expectativas en los escenarios de prueba con base en la documentación de la API y el comportamiento real observado.
+- Además, verificar que la API responde consistentemente con los mensajes de error esperados.

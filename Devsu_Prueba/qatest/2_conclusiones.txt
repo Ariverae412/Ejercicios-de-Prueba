@@ -1,0 +1,23 @@
+# Hallazgos y Conclusiones del Ejercicio
+
+## Resumen de la Ejecución
+- **Fecha de Ejecución:** 8 de agosto de 2024
+- **Resultado General:** Fallo
+- **Duración:** 1.097 segundos
+
+## Detalles del Proceso de Prueba
+1. **Login:** El usuario `standard_user` fue autenticado correctamente.
+2. **Añadir Productos al Carrito:** Dos productos fueron añadidos exitosamente al carrito.
+3. **Proceso de Checkout:** El proceso de checkout fue iniciado y completado sin problemas.
+4. **Confirmación de Pedido:** Se intentó verificar la presencia del mensaje de confirmación "THANK YOU FOR YOUR ORDER" al finalizar el proceso de compra.
+
+## Problemas Encontrados
+- **Fallo en la Verificación de la Confirmación de Pedido:**
+  - **Descripción del Error:** El mensaje de confirmación "THANK YOU FOR YOUR ORDER" no fue encontrado en la página. 
+  - **Error Específico:** `no such element: Unable to locate element: {"method":"xpath","selector":"//h2[contains(text(),'THANK YOU FOR YOUR ORDER')]"}`
+  - **Posible Causa:** La página podría no haber cargado completamente antes de que el test intentara verificar la presencia del mensaje. También podría haber un problema con el selector XPath utilizado.
+
+## Conclusiones
+- **Problema de Sincronización:** Es probable que el fallo se deba a un problema de sincronización, donde el test intentó verificar el mensaje de confirmación antes de que estuviera presente en el DOM.
+- **Recomendación:** Implementar esperas explícitas antes de verificar la presencia del mensaje de confirmación para asegurar que la página ha cargado completamente. Alternativamente, se debe revisar el selector XPath utilizado para asegurarse de que es correcto y robusto.
+- **Próximos Pasos:** Realizar ajustes en el código de la prueba para manejar mejor la sincronización y evitar futuros fallos similares.
